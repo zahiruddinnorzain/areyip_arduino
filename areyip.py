@@ -1,11 +1,8 @@
-def projectName(filename):
-    open(filename + ".txt", "w")
-    return filename
 
 projectName = "outfile"
 
 def start():
-    f = open(projectName + ".txt", "a")
+    f = open(projectName + ".txt", "w")
     f.write("void main(){ \n\n")
 
         
@@ -35,5 +32,22 @@ class SdeclarePin:
     
     def WdigitalPin(self, onoff):
         self.onoff = onoff
-        f = open(projectName + ".txt", "a")
-        f.write("pinMode(" + str(self.pin) + "," + self.onoff + ");\n")
+        
+        if self.kondisi == "OUTPUT":
+            f = open(projectName + ".txt", "a")
+            f.write("pinMode(" + str(self.pin) + "," + self.onoff + ");\n")
+        
+        if self.kondisi != "OUTPUT":
+            print("ERROR: CANNOT READ INPUT. CHANGE INPUT TO OUTPUT AT PIN " + str(self.pin) + "\n")
+        
+    #sensor = analogRead(pin)
+    def WanalogRead(self, datain):
+        self.datain = datain
+        
+        if self.kondisi == "INPUT":
+        
+            f = open(projectName + ".txt", "a")
+            f.write(datain + " = analogRead(" + str(self.pin) + ");" )
+            
+        if self.kondisi != "INPUT":
+            print("ERROR: CANNOT READ OUTPUT. CHANGE OUTPUT TO INPUT AT PIN " + str(self.pin) + "\n")
